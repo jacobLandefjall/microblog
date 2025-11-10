@@ -1,0 +1,30 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: microblog_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: microblog
+      MYSQL_USER: microblog
+      MYSQL_PASSWORD: mbpass
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+
+  prod:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: microblog_prod
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "mysql+pymysql://microblog:mbpass@db:3306/microblog"
+      FLASK_APP: "app"
+      FLASK_ENV: "production"
+    ports:
+      - "8000:8000"
