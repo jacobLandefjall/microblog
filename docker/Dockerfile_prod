@@ -1,28 +1,26 @@
-# syntax=docker/dockerfile:1.4
-FROM python:3.8-alpine
-RUN adduser -D microblog
+FROM python:3.9-slim
 
-WORKDIR /home/microblog
+WORKDIR /app
 
-# COPY . .
-COPY app app
-COPY migrations migrations
-COPY requirements requirements
-COPY requirements.txt microblog.py boot.sh ./
+# Install dependencies FIXED VERSION
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    gcc \
+    default-libmysqlclient-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN <<-EOF
-    python -m venv .venv
-    .venv/bin/pip3 install -r requirements.txt
-EOF
+# Copy requirements and install
+COPY requirements/prod.txt .
+RUN pip install --no-cache-dir -r prod.txt
 
-ENV FLASK_APP microblog.py
+# Copy application
+COPY app/ ./app/
+COPY migrations/ ./migrations/
 
-RUN <<-EOF
-    chmod +x boot.sh
-    chown -R microblog:microblog ./
-EOF
-
-USER microblog
+# Environment variables
+ENV FLASK_APP=app
+ENV FLASK_ENV=production
 
 EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]
+
+CMD ["flask", "run", "--host=0.0.0.0"]
