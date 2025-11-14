@@ -39,7 +39,7 @@ jobs:
       run: |
         python -m venv .venv
         .venv/bin/pip install --upgrade pip
-        .venv/bin/pip install -r requirements.txt
+        .venv/bin/pip install -r requirements/test.txt
 
     - name: Wait for MySQL to be ready
       run: |
@@ -49,5 +49,4 @@ jobs:
         done
 
     - name: Run tests
-      run: |
-        .venv/bin/pytest -v
+      run: .venv/bin/pytest -v
