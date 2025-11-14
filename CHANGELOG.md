@@ -4,21 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project uses [Semantic Versioning](http://semver.org/).
  
-## [Unreleased] - 2025-11-07
- 
-This section contains all ongoing development changes that are not yet released.
- 
+## 2025-11-14
 ### Added
-- [PROJECTNAME-XXXX](http://tickets.projectname.com/browse/PROJECTNAME-XXXX)
-  MINOR Ticket title goes here.
-- [PROJECTNAME-YYYY](http://tickets.projectname.com/browse/PROJECTNAME-YYYY)
-  PATCH Ticket title goes here.
+
+    Docker configuration for production
+    Docker Compose setup with MySQL
+    Git commit message template
+    Semantic versioning changelog
+    CI.yml
+    CD.yml
+    Dockerfile_test
+
+## 2025-11-14
+### Changed 
+Updated Docker Compose file to run tests.
+Updated .gitmessage with more information on how to write git messages. 
  
-### Changed
- 
+## 2025-11-14
 ### Fixed
- 
-## [0.0.0] - 2025-11-07
+ Fixed CHANGELOG.md with 'Added', 'Changed', and 'Fixed'.
   
 Here we would have the update steps for future versions for people to follow.
  
@@ -30,7 +34,6 @@ Here we would have the update steps for future versions for people to follow.
  
 ### Fixed
  
-- [PROJECTNAME-TTTT]
  
 ## [0.0.0] - 2025-11-07
  
